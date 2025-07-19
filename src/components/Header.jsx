@@ -1,9 +1,9 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 import logo from "../assets/logo.vinted-reacteur.svg";
 
-function Header({ search, setSearch }) {
+function Header({ search, setSearch, user, setUser }) {
   const [priceRange, setPriceRange] = useState(10);
   const navigate = useNavigate();
 
@@ -30,11 +30,26 @@ function Header({ search, setSearch }) {
 
           {/* Boutons de navigation */}
           <div className="header-buttons">
-            <button className="btn" onClick={() => navigate("/signup")}>
-              S'inscrire
-            </button>
-
-            <button className="btn">Se connecter</button>
+            {user ? (
+              <button
+                className="btn"
+                onClick={() => {
+                  Cookies.remove("token");
+                  setUser(null);
+                }}
+              >
+                Se déconnecter
+              </button>
+            ) : (
+              <>
+                <button className="btn" onClick={() => navigate("/signup")}>
+                  S'inscrire
+                </button>
+                <button className="btn" onClick={() => navigate("/login")}>
+                  Se connecter
+                </button>
+              </>
+            )}
             <button className="btn highlight">Vends tes articles</button>
           </div>
         </div>
