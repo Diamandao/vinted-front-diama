@@ -1,3 +1,4 @@
+import Payment from "./pages/Payment";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -25,6 +26,7 @@ function App() {
         <Route path="/offer/:id" element={<Offer />} />
         <Route path="/signup" element={<Signup setUser={setUser} />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </>
   );

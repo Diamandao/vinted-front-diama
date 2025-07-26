@@ -1,11 +1,13 @@
-import "./Offer.css"; // ou '../styles/Offer.css' selon où tu l’as mis
-import { useParams } from "react-router-dom";
+import "./Offer.css";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "../App.css"; // ou un fichier spécifique comme Offer.css si tu veux affiner le style
+import "../App.css";
 
 const Offer = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [offer, setOffer] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,6 +26,15 @@ const Offer = () => {
 
     fetchOffer();
   }, [id]);
+
+  const handleBuyClick = () => {
+    navigate("/payment", {
+      state: {
+        productName: offer.product_name,
+        productPrice: offer.product_price,
+      },
+    });
+  };
 
   return isLoading ? (
     <p>Chargement...</p>
@@ -68,7 +79,10 @@ const Offer = () => {
             </div>
           </div>
 
-          <button className="buy-button">Acheter</button>
+          {/* Bouton Acheter */}
+          <button className="buy-button" onClick={handleBuyClick}>
+            Acheter
+          </button>
         </div>
       </div>
     </div>
